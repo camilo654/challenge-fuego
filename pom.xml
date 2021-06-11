@@ -27,6 +27,12 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<!-- trilateration -->
+		<dependency>
+			<groupId>com.lemmingapex.trilateration</groupId>
+			<artifactId>trilateration</artifactId>
+			<version>1.0.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
