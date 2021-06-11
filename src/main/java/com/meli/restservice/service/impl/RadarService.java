@@ -8,24 +8,37 @@ import org.springframework.stereotype.Service;
 
 import com.lemmingapex.trilateration.NonLinearLeastSquaresSolver;
 import com.lemmingapex.trilateration.TrilaterationFunction;
+import com.meli.restservice.dto.SatelliteDTO;
 import com.meli.restservice.service.IRadarService;
 
 @Service
 public class RadarService implements IRadarService{
 
-	private static final double[] KENOBI_POSITION = { 100, 100 };
-	private static final double[] SKYWALKER_POSITION = { 400.0, 300.0 };
-	private static final double[] SATO_POSITION = { 150.0, 390.0 };
+	private static final double[] KENOBI_POSITION = { -500, -200 };
+	private static final double[] SKYWALKER_POSITION = { 100.0, -100.0 };
+	private static final double[] SATO_POSITION = { 500.0, 100.0 };
 
 	private static final Logger logger = LoggerFactory.getLogger(RadarService.class);
 
 	@Override
-	public float[] getLocation() {
-
+	public float[] getLocation(SatelliteDTO[] satellites) {
 		logger.info("getLocation()");
 
-		// Test
-		return trilateration(200.0f, 320.0f, 400.0f);
+		float distanceToKenobi = 0f;
+		float distanceToSkywalker = 0f;
+		float distanceToSato = 0f;
+
+		for (SatelliteDTO satelliteDTO : satellites) {
+			if (satelliteDTO.getName().equals("kenobi")) {
+				distanceToKenobi = satelliteDTO.getDistance();
+			} else if (satelliteDTO.getName().equals("skywalker")) {
+				distanceToSkywalker = satelliteDTO.getDistance();
+			} else if (satelliteDTO.getName().equals("sato")) {
+				distanceToSato = satelliteDTO.getDistance();
+			}
+		}
+
+		return trilateration(distanceToKenobi, distanceToSkywalker, distanceToSato);
 	}
 
 	/**
