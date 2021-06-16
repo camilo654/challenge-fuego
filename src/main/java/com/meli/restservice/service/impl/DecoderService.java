@@ -4,10 +4,16 @@ import java.util.Arrays;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.meli.restservice.dto.SatelliteDTO;
 import com.meli.restservice.service.IDecoderService;
 
+/**
+ *
+ * @author cctorresr
+ */
+@Service
 public class DecoderService implements IDecoderService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DecoderService.class);

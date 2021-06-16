@@ -2,6 +2,10 @@ package com.meli.restservice.service;
 
 import com.meli.restservice.dto.SatelliteDTO;
 
+/**
+ *
+ * @author cctorresr
+ */
 public interface IRadarService {
 
 	/**

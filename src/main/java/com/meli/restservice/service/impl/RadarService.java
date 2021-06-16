@@ -11,10 +11,14 @@ import com.lemmingapex.trilateration.TrilaterationFunction;
 import com.meli.restservice.dto.SatelliteDTO;
 import com.meli.restservice.service.IRadarService;
 
+/**
+ *
+ * @author cctorresr
+ */
 @Service
-public class RadarService implements IRadarService{
+public class RadarService implements IRadarService {
 
-	private static final double[] KENOBI_POSITION = { -500, -200 };
+	private static final double[] KENOBI_POSITION = { -500.0, -200.0 };
 	private static final double[] SKYWALKER_POSITION = { 100.0, -100.0 };
 	private static final double[] SATO_POSITION = { 500.0, 100.0 };
 
@@ -38,16 +42,18 @@ public class RadarService implements IRadarService{
 			}
 		}
 
+		logger.info("getLocation() - llamado a metodo de calculo trilateration");
 		return trilateration(distanceToKenobi, distanceToSkywalker, distanceToSato);
 	}
 
 	/**
-	 * Solves a trilateration problem using a nonlinear least squares optimizer.
+	 * Resuelve un problema de trilateracion utilizando un optimizador de mínimos
+	 * cuadrados no lineal.
 	 * 
 	 * @param distanceToKenobi
 	 * @param distanceToSkywalker
 	 * @param distanceToSato
-	 * @return returns the coordinate of the point
+	 * @return retorna la coordenada de la nave portacarga
 	 */
 	private float[] trilateration(float distanceToKenobi, float distanceToSkywalker, float distanceToSato) {
 
@@ -59,15 +65,15 @@ public class RadarService implements IRadarService{
 
 		double[] distances = new double[] { distanceToKenobi, distanceToSkywalker, distanceToSato };
 
-		// coordinate calculation
+		// calculo de coordenada
 		NonLinearLeastSquaresSolver solver = new NonLinearLeastSquaresSolver(
 				new TrilaterationFunction(positions, distances), new LevenbergMarquardtOptimizer());
 		Optimum optimum = solver.solve();
 
-		// the answer
+		// la respuesta
 		double[] centroid = optimum.getPoint().toArray();
 
-		// conversion to Float
+		// conversion a Float
 		float x = (float) centroid[0];
 		float y = (float) centroid[1];
 		float[] position = { x, y };
@@ -75,5 +81,5 @@ public class RadarService implements IRadarService{
 		logger.info("exit trilateration() - position: {}", position);
 		return position;
 	}
-	
+
 }
