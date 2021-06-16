@@ -30,13 +30,16 @@ public class IntelligenceService implements IIntelligenceService {
 	public ResponseDTO getInformation(SatelliteDTO[] satellites) {
 		logger.info("getInformation");
 
+		// Se valida informacion recibida
 		validateInformation(satellites);
 		
+		// Se calcula coordenada
 		float[] positionArray = radarService.getLocation(satellites);
 		float coordinateX = positionArray[0];
 		float coordinateY = positionArray[1];
 		PositionDTO position = new PositionDTO(coordinateX, coordinateY);
 
+		// Se descifra mensaje
 		String message = decoderService.getMessage(satellites);
 
 		logger.info("getInformation - position: {}", position);

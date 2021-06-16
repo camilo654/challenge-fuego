@@ -42,6 +42,7 @@ public class RadarService implements IRadarService {
 			}
 		}
 
+		logger.info("getLocation() - llamado a metodo de calculo trilateration");
 		return trilateration(distanceToKenobi, distanceToSkywalker, distanceToSato);
 	}
 
