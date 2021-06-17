@@ -80,6 +80,31 @@ public class IntelligenceService implements IIntelligenceService {
 		return getInformation(satelliteMapper.satelliteArrayToSatelliteDTOArray(satellitesArray));
 	}
 
+	@Override
+	public String saveInformation(SatelliteDTO satelliteDTO) throws Exception {
+		long id = 0;
+
+		if (satelliteDTO.getName().equals("kenobi")) {
+			id = 1;
+		} else if (satelliteDTO.getName().equals("skywalker")) {
+			id = 2;
+		} else if (satelliteDTO.getName().equals("sato")) {
+			id = 3;
+		} else {
+			throw new Exception("¡Satelite no reconocido!");
+		}
+
+		try {
+			Satellite satellite = satelliteMapper.satelliteDTOToSatellite(satelliteDTO);
+			satellite.setId(id);
+			satelliteRepository.save(satellite);
+		} catch (Exception e) {
+			throw new Exception("¡Ocurrio un error al registrar la información!");
+		}
+
+		return "¡Información registrada exitosamente!";
+	}
+
 	/**
 	 * Valida si se cuenta con la informacion de los 3 satelites, necesaria para
 	 * poder descifrar el mensaje y obtener la ubicacion.

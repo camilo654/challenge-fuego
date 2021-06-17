@@ -30,5 +30,15 @@ public interface IIntelligenceService {
 	 * @return {@code ResponseDTO} con las coordenadas (x,y) y el mensaje del emisor
 	 */
 	ResponseDTO getInformationSplit();
-	
+
+	/**
+	 * Guarda la informacion del satelite en DB.
+	 * 
+	 * @param satelliteDTO
+	 * @return Un {@code String} con un mensaje de confirmacion.
+	 * @throws Exception Si el nombre del satelite no es valido o si se presenta un
+	 *                   error al almacenar la informacion en DB.
+	 */
+	String saveInformation(SatelliteDTO satelliteDTO) throws Exception;
+
 }

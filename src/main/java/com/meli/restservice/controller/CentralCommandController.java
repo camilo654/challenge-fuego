@@ -84,4 +84,28 @@ public class CentralCommandController {
 		}
 	}
 
+	/**
+	 * Valida si el nombre del satellite recibido corresponde con uno de los 3
+	 * identificado y guarda la informacion recibida en DB.
+	 * 
+	 * @param satelliteName
+	 * @param satelliteDTO
+	 * @return {@code ResponseEntity<ResponseDTO>} con mensaje de confirmacion de
+	 *         que la informacion se guardo correctamente en la DB.
+	 */
+	@PostMapping(path = "/topsecret_split/{satelliteName}", consumes = "application/json", produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> saveInformation(@PathVariable(name = "satelliteName") String satelliteName,
+			@RequestBody SatelliteDTO satelliteDTO) {
+		logger.info("saveInformation - satelliteName: {}", satelliteName);
+		logger.info("saveInformation - satelliteDTO: {}", satelliteDTO);
+
+		try {
+			satelliteDTO.setName(satelliteName);
+			return new ResponseEntity<>(intelligenceService.saveInformation(satelliteDTO), HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error("saveInformation - error: {}", e);
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+	}
+
 }
