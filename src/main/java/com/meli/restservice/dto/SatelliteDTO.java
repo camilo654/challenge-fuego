@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class SatelliteDTO {
 
+	private Long id;
 	private String name;
 	private float distance;
 	private String[] message;
