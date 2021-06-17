@@ -1,7 +1,5 @@
 package com.meli.restservice.entity;
 
-import java.util.Arrays;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
